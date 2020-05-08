@@ -4,15 +4,15 @@ import java.math.BigInteger;
 
 public class User {
 	
-	BigInteger Id;
+	long Id;
 	String Email_Id;
 	String Name;
 	String Password;
-	public BigInteger getId() {
+	public long getId() {
 		return Id;
 	}
-	public void setId(BigInteger id) {
-		Id = id;
+	public void setId(long l) {
+		Id = l;
 	}
 	public String getEmail_Id() {
 		return Email_Id;

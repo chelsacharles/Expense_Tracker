@@ -1,6 +1,9 @@
 package com.example.etracker.Dao;
 
 
+import java.sql.ResultSet;
+
+import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -9,7 +12,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.example.etracker.Model.User;
+
 
 
 
@@ -96,5 +103,53 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 		return jdbcTemplate.queryForList(FETCH_INCOME_EXPENSE, uSER_ID);
 	}
 	
+
+	@Override
+	public int addUser(String email_Id, String name, String password) {
+		String sql="INSERT INTO T_USER (EMAILID, NAME,PASSWORD) VALUES(?,?,?)";
+
+		int update = jdbcTemplate.update(sql,email_Id,name,password);
+		if(update==1) {
+			System.out.println("User is created");
+		}
+		return 1;
+	}
+
+
+
+	
+
+
+	@Override
+	public List<User> selectUser(String Email_Id, String Password) {
+		String fetch_sql="SELECT ID,NAME FROM T_USER WHERE EMAILID=? AND PASSWORD=?";
+		Object[] inputs = new Object[] {Email_Id,Password};
+		return jdbcTemplate.query(fetch_sql,inputs, new RegisterMapper());
+	}
+
+	
+
+
+
+	@Override
+	public int resetPassword(String EmailId, String Password) {
+		System.out.println(EmailId+","+Password);
+		String update_sql="UPDATE T_USER SET PASSWORD=? WHERE EMAILID=?";
+		Object[] inputs = new Object[] {Password,EmailId};
+		int result= jdbcTemplate.update(update_sql,inputs);
+		return result;
+	}
+}
+
+
+class RegisterMapper implements RowMapper<User>{
+	@Override
+	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+		User register = new User();
+		register.setId(rs.getLong("ID"));
+		register.setName(rs.getString("NAME"));
+		return register;
+	}
+
 
 }

@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.example.etracker.Model.User;
+
 public interface Etracker_Service {
 	
     public Map<String, java.lang.Object> graph1(int uSER_ID);
@@ -20,5 +22,9 @@ public interface Etracker_Service {
 	public Collection<Map<String, Object>> getExpense(int uSER_ID);
 
 	public Collection<Map<String, Object>> getIncomeExpense(int uSER_ID);
+	
+	public List<User> getUser(String EMAILID, String PASSWORD);
+	public int resetPassword(String EMAILID, String PASSWORD);
+	public int addUser(String email_Id, String name, String password);
 	
 }

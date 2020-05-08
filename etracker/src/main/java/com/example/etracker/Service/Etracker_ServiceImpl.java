@@ -2,6 +2,7 @@ package com.example.etracker.Service;
 
 
 import java.util.Collection;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.etracker.Dao.Etracker_Dao;
+import com.example.etracker.Model.User;
+
 
 @Service
 public class Etracker_ServiceImpl implements Etracker_Service{
@@ -62,6 +65,17 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 	public Collection<Map<String, Object>> getIncomeExpense(int uSER_ID) {
 		return epTrackDao.getIncomeExpense(uSER_ID);
 	}
+	
+	public int addUser(String email_Id, String name, String password) {
+		return epTrackDao.addUser( email_Id, name,  password);
+	}
+	public List<User> getUser(String EMAILID, String PASSWORD) {
+		return epTrackDao.selectUser(EMAILID,PASSWORD);
+	}
+	public int resetPassword(String EMAILID, String PASSWORD) {
+		return epTrackDao.resetPassword(EMAILID,PASSWORD);
+	}
+	
 
 	
 }
