@@ -47,6 +47,21 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 	public List<Map<String, Object>> yearlycategorysum(int uSER_ID) {
 		return epTrackDao.yearlycategorysum(uSER_ID);
 	}
+	
+	public Collection<Map<String, Object>> getIncome(int uSER_ID) {
+		return epTrackDao.getIncome(uSER_ID);
+	}
+
+
+	
+	public Collection<Map<String, Object>> getExpense(int uSER_ID) {
+		return epTrackDao.getExpense(uSER_ID);
+	}
+
+
+	public Collection<Map<String, Object>> getIncomeExpense(int uSER_ID) {
+		return epTrackDao.getIncomeExpense(uSER_ID);
+	}
 
 	
 }

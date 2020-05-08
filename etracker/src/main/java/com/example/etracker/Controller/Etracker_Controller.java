@@ -62,6 +62,23 @@ public class Etracker_Controller {
 	{
 		return exp.yearlycategorysum(uSER_ID);
 	}
+	
+	
+	@GetMapping("/getIncome")
+	public Collection<Map<String,Object>> getIncome(@RequestParam int uSER_ID){
+		return exp.getIncome(uSER_ID);
+	}
+	
+
+	@GetMapping("/getExpense")
+	public Collection<Map<String,Object>> getExpense(@RequestParam int uSER_ID){
+		return exp.getExpense(uSER_ID);
+	}
+	
+	@GetMapping("/getIncomeExpense")
+	public Collection<Map<String,Object>> getIncomeExpense(@RequestParam int uSER_ID){
+		return exp.getIncomeExpense(uSER_ID);
+	}
 
 	
 	

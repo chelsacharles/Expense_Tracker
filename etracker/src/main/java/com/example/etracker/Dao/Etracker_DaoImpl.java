@@ -22,10 +22,10 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	JdbcTemplate jdbcTemplate;
 
 	
-    private final String G1 = "SELECT SUM(CASE WHEN transaction_type=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN transaction_type=1 THEN amount END) AS TotalIncome FROM t_transaction WHERE year(transaction_date) = year( current_date()) and user_id= ? ";
-    private final String G2 = "SELECT SUM(CASE WHEN transaction_type=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN transaction_type=1 THEN amount END) AS TotalIncome FROM t_transaction WHERE year(transaction_date) = year( current_date()) and month(transaction_date) = month(current_date())and user_id=?";
-    private final String G3 = "SELECT monthname(transaction_date) as Month, SUM(CASE WHEN transaction_type=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN transaction_type=1 THEN amount END) AS TotalIncome FROM t_transaction WHERE year(transaction_date) = year(current_date()) and user_id=? group by Month";
-    private final String G4 = "SELECT dayofmonth(transaction_date) as Day, SUM(CASE WHEN transaction_type=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN transaction_type=1 THEN amount END) AS TotalIncome FROM t_transaction WHERE month(transaction_date) = month(current_date()) and year(transaction_date) = year(current_date()) and user_id=? group by Day";
+    private final String G1 = "SELECT SUM(CASE WHEN TRANSACTION_TYPE=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN TRANSACTION_TYPE=1 THEN amount END) AS TotalIncome FROM T_TRANSACTION WHERE year(TRANSACTION_DATE) = year( current_date()) and USER_ID= ? ";
+    private final String G2 = "SELECT SUM(CASE WHEN TRANSACTION_TYPE=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN TRANSACTION_TYPE=1 THEN amount END) AS TotalIncome FROM T_TRANSACTION WHERE year(TRANSACTION_DATE) = year( current_date()) and month(TRANSACTION_DATE) = month(current_date())and USER_ID=?";
+    private final String G3 = "SELECT monthname(TRANSACTION_DATE) as Month, SUM(CASE WHEN TRANSACTION_TYPE=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN TRANSACTION_TYPE=1 THEN amount END) AS TotalIncome FROM T_TRANSACTION WHERE year(TRANSACTION_DATE) = year(current_date()) and USER_ID=? group by Month";
+    private final String G4 = "SELECT dayofmonth(TRANSACTION_DATE) as Day, SUM(CASE WHEN TRANSACTION_TYPE=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN TRANSACTION_TYPE=1 THEN amount END) AS TotalIncome FROM T_TRANSACTION WHERE month(TRANSACTION_DATE) = month(current_date()) and year(transaction_date) = year(current_date()) and USER_ID=? group by Day";
     private final String ADDINCOME = "INSERT INTO T_TRANSACTION(TRANSACTION_TYPE,USER_ID,ITEM,CATEGORY_ID,AMOUNT,TRANSACTION_DATE) VALUES (1,?,?,?,?,?)";
     private final String ADDEXPENSE = "INSERT INTO T_TRANSACTION(TRANSACTION_TYPE,USER_ID,ITEM,CATEGORY_ID,AMOUNT,TRANSACTION_DATE) VALUES (0,?,?,?,?,?)";
     private final String HME = "SELECT C.CATEGORY_NAME, SUM(AMOUNT) SUMAMOUNT FROM T_TRANSACTION T INNER JOIN T_CATEGORY C ON T.CATEGORY_ID = C.ID WHERE T.TRANSACTION_TYPE = 0 AND T.USER_ID = ? AND MONTH(T.TRANSACTION_DATE) = month(current_date() AND YEAR(T.TRANSACTION_DATE) = year(current_date()) GROUP BY C.CATEGORY_NAME"; 
@@ -73,6 +73,27 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	public List<Map<String, Object>> yearlycategorysum(int uSER_ID) {
 		return jdbcTemplate.queryForList(HYE,uSER_ID);
 
+	}
+	
+	private final String FETCH_INCOME = "SELECT T_TRANSACTION.ITEM AS ITEM,T_TRANSACTION.AMOUNT AS AMOUNT, T_TRANSACTION.TRANSACTION_DATE AS DATE, T_CATEGORY.CATEGORY_NAME AS CATEGORY FROM T_TRANSACTION JOIN T_CATEGORY ON T_TRANSACTION.CATEGORY_ID=T_CATEGORY.ID WHERE T_TRANSACTION.TRANSACTION_TYPE=0 AND T_TRANSACTION.USER_ID= ? ORDER BY T_TRANSACTION.TRANSACTION_DATE DESC";
+    private final String FETCH_EXPENSE = "SELECT T_TRANSACTION.ITEM AS ITEM,T_TRANSACTION.AMOUNT AS AMOUNT, T_TRANSACTION.TRANSACTION_DATE AS DATE, T_CATEGORY.CATEGORY_NAME AS CATEGORY FROM T_TRANSACTION JOIN T_CATEGORY ON T_TRANSACTION.CATEGORY_ID=T_CATEGORY.ID WHERE T_TRANSACTION.TRANSACTION_TYPE=1 AND T_TRANSACTION.USER_ID= ? ORDER BY T_TRANSACTION.TRANSACTION_DATE DESC";
+    private final String FETCH_INCOME_EXPENSE = "SELECT T_TRANSACTION.ITEM AS ITEM,T_TRANSACTION.AMOUNT AS AMOUNT, T_TRANSACTION.TRANSACTION_DATE AS DATE, T_CATEGORY.CATEGORY_NAME AS CATEGORY FROM T_TRANSACTION JOIN T_CATEGORY ON T_TRANSACTION.CATEGORY_ID=T_CATEGORY.ID WHERE T_TRANSACTION.USER_ID= ? ORDER BY T_TRANSACTION.TRANSACTION_DATE DESC";
+	
+
+	public Collection<Map<String, Object>> getIncome(int uSER_ID) {
+		return jdbcTemplate.queryForList(FETCH_INCOME, uSER_ID);
+	}
+
+
+	@Override
+	public Collection<Map<String, Object>> getExpense(int uSER_ID) {
+		return jdbcTemplate.queryForList(FETCH_EXPENSE, uSER_ID);
+	}
+
+
+	@Override
+	public Collection<Map<String, Object>> getIncomeExpense(int uSER_ID) {
+		return jdbcTemplate.queryForList(FETCH_INCOME_EXPENSE, uSER_ID);
 	}
 	
 

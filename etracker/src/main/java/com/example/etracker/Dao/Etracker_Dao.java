@@ -15,6 +15,11 @@ public interface Etracker_Dao {
 	public List<Map<String, Object>> monthlycategorysum(int uSER_ID);
 	public List<Map<String, Object>> yearlycategorysum(int uSER_ID);
 
+	public Collection<Map<String,Object>> getIncome(int uSER_ID);
+
+	public Collection<Map<String, Object>> getExpense(int uSER_ID);
+
+	public Collection<Map<String, Object>> getIncomeExpense(int uSER_ID);
 
 
 }
