@@ -26,5 +26,7 @@ public interface Etracker_Service {
 	public List<User> getUser(String EMAILID, String PASSWORD);
 	public int resetPassword(String EMAILID, String PASSWORD);
 	public int addUser(String email_Id, String name, String password);
+	public List<Map<String, Object>> liscategoryexpense();
+	public List<Map<String, Object>> liscategoryincome();
 	
 }

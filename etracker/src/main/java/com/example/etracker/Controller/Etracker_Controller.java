@@ -57,6 +57,16 @@ public class Etracker_Controller {
 	 exp.addexpense(USER_ID,ITEM,CATEGORY_ID,AMOUNT,TRANSACTION_DATE);
 	 }
 	
+	@GetMapping(path = "/liscategoryexpense")
+	public List<Map<String, Object>> liscategoryexpense()
+	{
+		return exp.liscategoryexpense();
+	}
+	@GetMapping(path = "/liscategoryincome")
+	public List<Map<String, Object>> liscategoryincome()
+	{
+		return exp.liscategoryincome();
+	}
 	@GetMapping(path = "/monthlycategorysum")
 	public List<Map<String, Object>> monthlycategorysum(@RequestParam int uSER_ID)
 	{
@@ -67,7 +77,6 @@ public class Etracker_Controller {
 	{
 		return exp.yearlycategorysum(uSER_ID);
 	}
-	
 	
 	@GetMapping("/getIncome")
 	public Collection<Map<String,Object>> getIncome(@RequestParam int uSER_ID){

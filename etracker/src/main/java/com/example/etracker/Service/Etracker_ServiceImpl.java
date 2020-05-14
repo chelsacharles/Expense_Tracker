@@ -75,6 +75,16 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 	public int resetPassword(String EMAILID, String PASSWORD) {
 		return epTrackDao.resetPassword(EMAILID,PASSWORD);
 	}
+	@Override
+	public List<Map<String, Object>> liscategoryexpense() {
+		return epTrackDao.liscategoryexpense();
+
+	}
+	@Override
+	public List<Map<String, Object>> liscategoryincome() {
+		return epTrackDao.liscategoryincome();
+
+	}
 	
 
 	
