@@ -4,8 +4,11 @@ package com.example.etracker.Controller;
 
 import java.util.Collection;
 
+
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.etracker.Model.User;
 import com.example.etracker.Service.Etracker_Service;
 
 
 @RestController
-@RequestMapping(value = "/tracker")
+@RequestMapping(value = "/tracker/register")
 public class Etracker_Controller {
 	
 	@Autowired
@@ -94,10 +96,10 @@ public class Etracker_Controller {
 		return exp.getIncomeExpense(uSER_ID);
 	}
 
-	@PostMapping("/register")
-	public int addUser(@RequestParam String Email_Id, @RequestParam String Name, @RequestParam String Password ) {
-
-		return exp.addUser(Email_Id,Name,Password);
+	@PostMapping
+	public int addUser(@RequestBody User user ) {
+		return exp.addUser(user);
+		
 		
 	}
 	@GetMapping(path="{EMAILID}/{PASSWORD}")
@@ -108,7 +110,6 @@ public class Etracker_Controller {
 	public int resetPassword(@PathVariable String EMAILID,@PathVariable String PASSWORD) {
 		return exp.resetPassword(EMAILID,PASSWORD);
 	}
-	
 	
 	
 }

@@ -19,7 +19,6 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 	@Autowired
 	Etracker_Dao epTrackDao;
 	
-	
 	public Map<String, java.lang.Object> graph1(int uSER_ID){
 		return epTrackDao.graph1(uSER_ID);
 	}
@@ -66,8 +65,9 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 		return epTrackDao.getIncomeExpense(uSER_ID);
 	}
 	
-	public int addUser(String email_Id, String name, String password) {
-		return epTrackDao.addUser( email_Id, name,  password);
+	public int addUser(User user) {
+		return epTrackDao.addUser(user);
+		
 	}
 	public List<User> getUser(String EMAILID, String PASSWORD) {
 		return epTrackDao.selectUser(EMAILID,PASSWORD);

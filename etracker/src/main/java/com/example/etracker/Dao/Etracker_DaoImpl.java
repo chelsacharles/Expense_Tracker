@@ -37,6 +37,7 @@ public class Etracker_DaoImpl implements Etracker_Dao {
     private final String ADDEXPENSE = "INSERT INTO T_TRANSACTION(TRANSACTION_TYPE,USER_ID,ITEM,CATEGORY_ID,AMOUNT,TRANSACTION_DATE) VALUES (0,?,?,?,?,?)";
     private final String HME = "SELECT C.CATEGORY_NAME, SUM(AMOUNT) SUMAMOUNT FROM T_TRANSACTION T INNER JOIN T_CATEGORY C ON T.CATEGORY_ID = C.ID WHERE T.TRANSACTION_TYPE = 0 AND T.USER_ID = ? AND MONTH(T.TRANSACTION_DATE) = month(current_date()) AND YEAR(T.TRANSACTION_DATE) = year(current_date()) GROUP BY C.CATEGORY_NAME"; 
     private final String HYE = "SELECT C.CATEGORY_NAME, SUM(AMOUNT) SUMAMOUNT FROM T_TRANSACTION T INNER JOIN T_CATEGORY C ON T.CATEGORY_ID = C.ID WHERE T.TRANSACTION_TYPE = 0 AND T.USER_ID = ? AND YEAR(T.TRANSACTION_DATE) = year(current_date()) GROUP BY C.CATEGORY_NAME"; 
+
     private final String LCE = "SELECT * FROM T_CATEGORY WHERE TRANSACTION_TYPE = 0";
     private final String LCI = "SELECT * FROM T_CATEGORY WHERE TRANSACTION_TYPE = 1";
     private final String FETCH_INCOME = "SELECT T_TRANSACTION.ITEM AS ITEM,T_TRANSACTION.AMOUNT AS AMOUNT, T_TRANSACTION.TRANSACTION_DATE AS DATE, T_CATEGORY.CATEGORY_NAME AS CATEGORY FROM T_TRANSACTION JOIN T_CATEGORY ON T_TRANSACTION.CATEGORY_ID=T_CATEGORY.ID WHERE T_TRANSACTION.TRANSACTION_TYPE=0 AND T_TRANSACTION.USER_ID= ? ORDER BY T_TRANSACTION.TRANSACTION_DATE DESC";
@@ -44,6 +45,7 @@ public class Etracker_DaoImpl implements Etracker_Dao {
     private final String FETCH_INCOME_EXPENSE = "SELECT T_TRANSACTION.ITEM AS ITEM,T_TRANSACTION.AMOUNT AS AMOUNT, T_TRANSACTION.TRANSACTION_DATE AS DATE, T_CATEGORY.CATEGORY_NAME AS CATEGORY FROM T_TRANSACTION JOIN T_CATEGORY ON T_TRANSACTION.CATEGORY_ID=T_CATEGORY.ID WHERE T_TRANSACTION.USER_ID= ? ORDER BY T_TRANSACTION.TRANSACTION_DATE DESC";
 	private final String update_sql="UPDATE T_USER SET PASSWORD=? WHERE EMAILID=?";
 
+ 
     
     public Map<String, java.lang.Object> graph1(int uSER_ID) {
 		
@@ -108,14 +110,17 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	
 
 	@Override
-	public int addUser(String email_Id, String name, String password) {
+	public int addUser(User user) {
 		String sql="INSERT INTO T_USER (EMAILID, NAME,PASSWORD) VALUES(?,?,?)";
 
-		int update = jdbcTemplate.update(sql,email_Id,name,password);
+		int update = jdbcTemplate.update(sql,user.getEmail_Id(),user.getName(),user.getPassword());
 		if(update==1) {
 			System.out.println("User is created");
+			return 1;
 		}
-		return 1;
+		else
+			return 0;
+		
 	}
 
 
