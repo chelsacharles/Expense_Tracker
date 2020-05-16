@@ -26,7 +26,7 @@ public interface Etracker_Dao {
 	List<User> selectUser(String Email_Id, String Password);
 
 	int resetPassword(String EmailId, String Password);
-	int addUser(User user);
+	int addUser(long Id, String Name, String Email_Id, String Password );
 	public List<Map<String, Object>> liscategoryexpense();
 	public List<Map<String, Object>> liscategoryincome();
 

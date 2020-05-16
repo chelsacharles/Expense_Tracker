@@ -65,8 +65,9 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 		return epTrackDao.getIncomeExpense(uSER_ID);
 	}
 	
-	public int addUser(User user) {
-		return epTrackDao.addUser(user);
+	public int addUser(long Id, String Name, String Email_Id, String Password ) {
+		System.out.println(Name);
+		return epTrackDao.addUser(Id, Name, Email_Id, Password);
 		
 	}
 	public List<User> getUser(String EMAILID, String PASSWORD) {

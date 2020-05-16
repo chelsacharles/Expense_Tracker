@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.etracker.Model.User;
@@ -98,7 +99,9 @@ public class Etracker_Controller {
 
 	@PostMapping
 	public int addUser(@RequestBody User user ) {
-		return exp.addUser(user);
+		 exp.addUser(user.getId(),user.getName(),user.getEmail_Id(),user.getPassword());
+			
+return 1;
 		
 		
 	}

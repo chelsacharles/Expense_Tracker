@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-
+	PasswordAuthentication passwordAuthentication=new PasswordAuthentication();
 	
     private final String G1 = "SELECT SUM(CASE WHEN TRANSACTION_TYPE=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN TRANSACTION_TYPE=1 THEN amount END) AS TotalIncome FROM T_TRANSACTION WHERE year(TRANSACTION_DATE) = year( current_date()) and USER_ID= ? ";
     private final String G2 = "SELECT SUM(CASE WHEN TRANSACTION_TYPE=0 THEN amount END) AS TotalExpense, SUM(CASE WHEN TRANSACTION_TYPE=1 THEN amount END) AS TotalIncome FROM T_TRANSACTION WHERE year(TRANSACTION_DATE) = year( current_date()) and month(TRANSACTION_DATE) = month(current_date())and USER_ID=?";
@@ -110,16 +111,22 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	
 
 	@Override
-	public int addUser(User user) {
+	public int addUser(long Id, String Name, String Email_Id, String Password ) {
+		String password =Password;
+		System.out.println(Password);
+		char[] ch = new char[password.length()]; 
+		for (int i = 0; i < password.length(); i++) { 
+            ch[i] = password.charAt(i); 
+        } 
+		String pass=passwordAuthentication.hash(ch);
+		System.out.println("Hashed Password = " + pass);
+		
 		String sql="INSERT INTO T_USER (EMAILID, NAME,PASSWORD) VALUES(?,?,?)";
-
-		int update = jdbcTemplate.update(sql,user.getEmail_Id(),user.getName(),user.getPassword());
+		int update = jdbcTemplate.update(sql,Email_Id,Name,pass);
 		if(update==1) {
 			System.out.println("User is created");
-			return 1;
 		}
-		else
-			return 0;
+		return 1;
 		
 	}
 
@@ -130,9 +137,37 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 
 	@Override
 	public List<User> selectUser(String Email_Id, String Password) {
-		String fetch_sql="SELECT ID,NAME FROM T_USER WHERE EMAILID=? AND PASSWORD=?";
-		Object[] inputs = new Object[] {Email_Id,Password};
-		return jdbcTemplate.query(fetch_sql,inputs, new RegisterMapper());
+		String check_sql = "SELECT EXISTS(SELECT * from T_USER WHERE EMAILID=?)";
+		Object[] input = new Object[] {Email_Id};
+		int status = jdbcTemplate.queryForObject(check_sql,input,Integer.class);
+		
+		if(status==1) {
+			String get_pass_sql = "SELECT PASSWORD FROM T_USER WHERE EMAILID=?";
+			Object[] in = new Object[] {Email_Id};
+			String dbPass=jdbcTemplate.queryForObject(get_pass_sql,in, String.class);
+			
+			char[] ch = new char[Password.length()]; 
+			for (int i = 0; i < Password.length(); i++) { 
+	            ch[i] = Password.charAt(i); 
+	        } 
+			String pass=passwordAuthentication.hash(ch);
+			System.out.println("Hashed Password = " + pass);
+			
+			boolean check = passwordAuthentication.authenticate(ch, dbPass);
+			System.out.println("Check similarity = " + check);
+			if(!check) {
+				
+				return Collections.emptyList();
+			}
+			else {
+				String fetch_sql="SELECT ID,NAME FROM T_USER WHERE EMAILID=?";
+				Object[] inputs = new Object[] {Email_Id};
+				return jdbcTemplate.query(fetch_sql,inputs, new RegisterMapper());
+			}
+		}
+		else {
+			return Collections.emptyList();
+		}
 	}
 
 	
@@ -141,7 +176,9 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 
 	@Override
 	public int resetPassword(String EmailId, String Password) {
+		
 		System.out.println(EmailId+","+Password);
+		String update_sql="UPDATE T_USER SET PASSWORD=? WHERE EMAILID=?";
 		Object[] inputs = new Object[] {Password,EmailId};
 		int result= jdbcTemplate.update(update_sql,inputs);
 		return result;
