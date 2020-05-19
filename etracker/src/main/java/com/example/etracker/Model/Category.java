@@ -5,28 +5,29 @@ import java.math.BigInteger;
 public class Category {
 
 	
-BigInteger Id;
-int Transaction_Type;
-String Category_Name;
-
+BigInteger id;
+int transactionType;
+String categoryName;
 public BigInteger getId() {
-	return Id;
+	return id;
 }
 public void setId(BigInteger id) {
-	Id = id;
+	this.id = id;
 }
-public int getTransaction_Type() {
-	return Transaction_Type;
+public int getTransactionType() {
+	return transactionType;
 }
-public void setTransaction_Type(int transaction_Type) {
-	Transaction_Type = transaction_Type;
+public void setTransactionType(int transactionType) {
+	this.transactionType = transactionType;
 }
-public String getCategory_Name() {
-	return Category_Name;
+public String getCategoryName() {
+	return categoryName;
 }
-public void setCategory_Name(String category_Name) {
-	Category_Name = category_Name;
+public void setCategoryName(String categoryName) {
+	this.categoryName = categoryName;
 }
+
+
 
 
 

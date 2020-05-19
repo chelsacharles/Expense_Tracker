@@ -5,57 +5,54 @@ import java.util.Date;
 
 public class Transaction {
 	
-	BigInteger Id;
-	int Transaction_Type;
-	BigInteger User_Id;
-	String Item;
-	BigInteger Category_Id;
-	double Amount;
-	Date Transaction_Date;
+	BigInteger id;
+	int transactionType;
+	BigInteger userId;
+	String item;
+	BigInteger categoryId;
+	double amount;
+	Date transactionDate;
 	public BigInteger getId() {
-		return Id;
+		return id;
 	}
 	public void setId(BigInteger id) {
-		Id = id;
+		this.id = id;
 	}
-	public int getTransaction_Type() {
-		return Transaction_Type;
+	public int getTransactionType() {
+		return transactionType;
 	}
-	public void setTransaction_Type(int transaction_Type) {
-		Transaction_Type = transaction_Type;
+	public void setTransactionType(int transactionType) {
+		this.transactionType = transactionType;
 	}
-	public BigInteger getUser_Id() {
-		return User_Id;
+	public BigInteger getUserId() {
+		return userId;
 	}
-	public void setUser_Id(BigInteger user_Id) {
-		User_Id = user_Id;
+	public void setUserId(BigInteger userId) {
+		this.userId = userId;
 	}
 	public String getItem() {
-		return Item;
+		return item;
 	}
 	public void setItem(String item) {
-		Item = item;
+		this.item = item;
 	}
-	public BigInteger getCategory_Id() {
-		return Category_Id;
+	public BigInteger getCategoryId() {
+		return categoryId;
 	}
-	public void setCategory_Id(BigInteger category_Id) {
-		Category_Id = category_Id;
+	public void setCategoryId(BigInteger categoryId) {
+		this.categoryId = categoryId;
 	}
 	public double getAmount() {
-		return Amount;
+		return amount;
 	}
 	public void setAmount(double amount) {
-		Amount = amount;
+		this.amount = amount;
 	}
-	public Date getTransaction_Date() {
-		return Transaction_Date;
+	public Date getTransactionDate() {
+		return transactionDate;
 	}
-	public void setTransaction_Date(Date transaction_Date) {
-		Transaction_Date = transaction_Date;
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
 	}
 	
-	
-	
-
 }

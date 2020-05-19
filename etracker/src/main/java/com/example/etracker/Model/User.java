@@ -4,35 +4,33 @@ import java.math.BigInteger;
 
 public class User {
 	
-	long Id;
-	String Email_Id;
-	String Name;
-	String Password;
+	long id;
+	String emailId;
+	String name;
+	String password;
 	public long getId() {
-		return Id;
+		return id;
 	}
-	public void setId(long l) {
-		Id = l;
+	public void setId(long id) {
+		this.id = id;
 	}
-	public String getEmail_Id() {
-		return Email_Id;
+	public String getEmailId() {
+		return emailId;
 	}
-	public void setEmail_Id(String email_Id) {
-		Email_Id = email_Id;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	
-	
-
 }

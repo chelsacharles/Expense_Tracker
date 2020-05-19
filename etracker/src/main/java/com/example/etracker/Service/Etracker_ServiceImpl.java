@@ -19,62 +19,61 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 	@Autowired
 	Etracker_Dao epTrackDao;
 	
-	public Map<String, java.lang.Object> graph1(int uSER_ID){
-		return epTrackDao.graph1(uSER_ID);
+	public Map<String, java.lang.Object> graph1(int userId){
+		return epTrackDao.graph1(userId);
 	}
-	public Map<String, java.lang.Object> graph2(int uSER_ID){
-		return epTrackDao.graph2(uSER_ID);
+	public Map<String, java.lang.Object> graph2(int userId){
+		return epTrackDao.graph2(userId);
 	}
-	public Collection<Map<String,java.lang.Object>>  graph3(int uSER_ID){
-		return epTrackDao.graph3(uSER_ID);
-	}
-	
-	public Collection<Map<String,java.lang.Object>> graph4(int uSER_ID){
-		return epTrackDao.graph4(uSER_ID);
+	public Collection<Map<String,java.lang.Object>>  graph3(int userId){
+		return epTrackDao.graph3(userId);
 	}
 	
-	public void addincome(int uSER_ID, String iTEM, int cATEGORY_ID, double aMOUNT, String tRANSACTION_DATE) {
-			epTrackDao.addincome(uSER_ID,iTEM,cATEGORY_ID,aMOUNT,tRANSACTION_DATE);
+	public Collection<Map<String,java.lang.Object>> graph4(int userId){
+		return epTrackDao.graph4(userId);
+	}
+	
+	public void addincome(int userId, String item, int categoryId, double amount, String transactionDate) {
+			epTrackDao.addincome(userId,item,categoryId,amount,transactionDate);
 		
 	}
-	public void addexpense(int uSER_ID, String iTEM, int cATEGORY_ID, double aMOUNT, String tRANSACTION_DATE) {
-		epTrackDao.addexpense(uSER_ID,iTEM,cATEGORY_ID,aMOUNT,tRANSACTION_DATE);
+	public void addexpense(int userId, String item, int categoryId, double amount, String transactionDate) {
+		epTrackDao.addexpense(userId,item,categoryId,amount,transactionDate);
 	
 	}
 
-	public List<Map<String, Object>> monthlycategorysum(int uSER_ID) {
-		return epTrackDao.monthlycategorysum(uSER_ID);
+	public List<Map<String, Object>> monthlycategorysum(int userId) {
+		return epTrackDao.monthlycategorysum(userId);
 	}
 
-	public List<Map<String, Object>> yearlycategorysum(int uSER_ID) {
-		return epTrackDao.yearlycategorysum(uSER_ID);
-	}
-	
-	public Collection<Map<String, Object>> getIncome(int uSER_ID) {
-		return epTrackDao.getIncome(uSER_ID);
-	}
-
-
-	
-	public Collection<Map<String, Object>> getExpense(int uSER_ID) {
-		return epTrackDao.getExpense(uSER_ID);
-	}
-
-
-	public Collection<Map<String, Object>> getIncomeExpense(int uSER_ID) {
-		return epTrackDao.getIncomeExpense(uSER_ID);
+	public List<Map<String, Object>> yearlycategorysum(int userId) {
+		return epTrackDao.yearlycategorysum(userId);
 	}
 	
-	public int addUser(long Id, String Name, String Email_Id, String Password ) {
-		System.out.println(Name);
-		return epTrackDao.addUser(Id, Name, Email_Id, Password);
+	public Collection<Map<String, Object>> getIncome(int userId) {
+		return epTrackDao.getIncome(userId);
+	}
+
+
+	
+	public Collection<Map<String, Object>> getExpense(int userId) {
+		return epTrackDao.getExpense(userId);
+	}
+
+
+	public Collection<Map<String, Object>> getIncomeExpense(int userId) {
+		return epTrackDao.getIncomeExpense(userId);
+	}
+	
+	public int addUser(long id, String name, String emailId, String password ) {
+		return epTrackDao.addUser(id, name, emailId, password);
 		
 	}
-	public List<User> getUser(String EMAILID, String PASSWORD) {
-		return epTrackDao.selectUser(EMAILID,PASSWORD);
+	public List<User> getUser(String emailId, String password) {
+		return epTrackDao.selectUser(emailId,password);
 	}
-	public int resetPassword(String EMAILID, String PASSWORD) {
-		return epTrackDao.resetPassword(EMAILID,PASSWORD);
+	public int resetPassword(String emailId, String password) {
+		return epTrackDao.resetPassword(emailId,password);
 	}
 	@Override
 	public List<Map<String, Object>> liscategoryexpense() {

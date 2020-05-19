@@ -100,7 +100,7 @@ public class Etracker_Controller {
 
 	@PostMapping
 	public int addUser(@RequestBody User user ) {
-		 exp.addUser(user.getId(),user.getName(),user.getEmail_Id(),user.getPassword());
+		 exp.addUser(user.getId(),user.getName(),user.getEmailId(),user.getPassword());
 			
 return 1;
 		
