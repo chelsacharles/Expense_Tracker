@@ -22,79 +22,80 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.etracker.Model.User;
 import com.example.etracker.Service.Etracker_Service;
+import com.example.etracker.utils.PathRoutes;
 
 
 @RestController
-@RequestMapping(value = "/tracker/register")
+@RequestMapping(PathRoutes.SearchSQL.SEARCHSQL_ROOT)
 public class Etracker_Controller {
 	
 	@Autowired
 	private Etracker_Service exp;
 	
-	@GetMapping("/TotalExpenseTotalIncomeBar_year")
-	public Map<String, java.lang.Object> graph1(@RequestParam int uSER_ID ){
-		return exp.graph1(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.TOTAL_BAR_YEAR)
+	public Map<String, java.lang.Object> graph1(@RequestParam int userId ){
+		return exp.graph1(userId);
 	}
 	
-	@GetMapping("/TotalExpenseTotalIncomeBar_month")
-	public Map<String, java.lang.Object> graph2(@RequestParam int uSER_ID ){
-		return exp.graph2(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.TOTAL_BAR_MONTH)
+	public Map<String, java.lang.Object> graph2(@RequestParam int userId ){
+		return exp.graph2(userId);
 	}
-	@GetMapping("/TotalExpenseTotalIncomeLine_year")
-	public Collection<Map<String,java.lang.Object>>  graph3(@RequestParam int uSER_ID ){
-		return exp.graph3(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.TOTAL_LINE_YEAR)
+	public Collection<Map<String,java.lang.Object>>  graph3(@RequestParam int userId ){
+		return exp.graph3(userId);
 	}
-	@GetMapping("/TotalExpenseTotalIncomeLine_month")
-	public Collection<Map<String,java.lang.Object>> graph4(@RequestParam int uSER_ID ){
-		return exp.graph4(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.TOTAL_LINE_MONTH)
+	public Collection<Map<String,java.lang.Object>> graph4(@RequestParam int userId ){
+		return exp.graph4(userId);
 	}
 
 
 	
-	@PostMapping(path = "/addincome")
-	 public void addincome(@RequestParam int USER_ID,@RequestParam String ITEM,@RequestParam int CATEGORY_ID,@RequestParam double AMOUNT,@RequestParam String TRANSACTION_DATE ) {
-	 exp.addincome(USER_ID,ITEM,CATEGORY_ID,AMOUNT,TRANSACTION_DATE);
+	@PostMapping(PathRoutes.SearchSQL.ADD_INCOME)
+	 public void addincome(@RequestParam int userId,@RequestParam String item,@RequestParam int categoryId,@RequestParam double amount,@RequestParam String transactionDate ) {
+	 exp.addincome(userId,item,categoryId,amount,transactionDate);
 	 }
-	@PostMapping(path = "/addexpense")
-	 public void addexpense(@RequestParam int USER_ID,@RequestParam String ITEM,@RequestParam int CATEGORY_ID,@RequestParam double AMOUNT,@RequestParam String TRANSACTION_DATE ) {
-	 exp.addexpense(USER_ID,ITEM,CATEGORY_ID,AMOUNT,TRANSACTION_DATE);
+	@PostMapping(PathRoutes.SearchSQL.ADD_EXPENSE)
+	 public void addexpense(@RequestParam int userId,@RequestParam String item,@RequestParam int categoryId,@RequestParam double amount,@RequestParam String transactionDate ) {
+	 exp.addexpense(userId,item,categoryId,amount,transactionDate);
 	 }
 	
-	@GetMapping(path = "/liscategoryexpense")
+	@GetMapping(PathRoutes.SearchSQL.LIST_CATEGORY_EXPENSE)
 	public List<Map<String, Object>> liscategoryexpense()
 	{
 		return exp.liscategoryexpense();
 	}
-	@GetMapping(path = "/liscategoryincome")
+	@GetMapping(PathRoutes.SearchSQL.LIST_CATEGORY_INCOME)
 	public List<Map<String, Object>> liscategoryincome()
 	{
 		return exp.liscategoryincome();
 	}
-	@GetMapping(path = "/monthlycategorysum")
-	public List<Map<String, Object>> monthlycategorysum(@RequestParam int uSER_ID)
+	@GetMapping(PathRoutes.SearchSQL.CATEGORY_BAR_MONTH)
+	public List<Map<String, Object>> monthlycategorysum(@RequestParam int userId)
 	{
-		return exp.monthlycategorysum(uSER_ID);
+		return exp.monthlycategorysum(userId);
 	}
-	@GetMapping(path = "/yearlycategorysum")
-	public List<Map<String, Object>> yearlycategorysum(@RequestParam int uSER_ID)
+	@GetMapping(PathRoutes.SearchSQL.CATEGORY_BAR_YEAR)
+	public List<Map<String, Object>> yearlycategorysum(@RequestParam int userId)
 	{
-		return exp.yearlycategorysum(uSER_ID);
+		return exp.yearlycategorysum(userId);
 	}
 	
-	@GetMapping("/getIncome")
-	public Collection<Map<String,Object>> getIncome(@RequestParam int uSER_ID){
-		return exp.getIncome(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.GET_INCOME)
+	public Collection<Map<String,Object>> getIncome(@RequestParam int userId){
+		return exp.getIncome(userId);
 	}
 	
 
-	@GetMapping("/getExpense")
-	public Collection<Map<String,Object>> getExpense(@RequestParam int uSER_ID){
-		return exp.getExpense(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.GET_EXPENSE)
+	public Collection<Map<String,Object>> getExpense(@RequestParam int userId){
+		return exp.getExpense(userId);
 	}
 	
-	@GetMapping("/getIncomeExpense")
-	public Collection<Map<String,Object>> getIncomeExpense(@RequestParam int uSER_ID){
-		return exp.getIncomeExpense(uSER_ID);
+	@GetMapping(PathRoutes.SearchSQL.GET_INCOME_EXPENSE)
+	public Collection<Map<String,Object>> getIncomeExpense(@RequestParam int userId){
+		return exp.getIncomeExpense(userId);
 	}
 
 	@PostMapping
@@ -105,13 +106,13 @@ return 1;
 		
 		
 	}
-	@GetMapping(path="{EMAILID}/{PASSWORD}")
-	public List<User> getUser(@PathVariable String EMAILID,@PathVariable String PASSWORD) {
-		return exp.getUser(EMAILID,PASSWORD);
+	@GetMapping(PathRoutes.SearchSQL.GET_EMAIL_PASSWORD)
+	public List<User> getUser(@PathVariable String emailId,@PathVariable String password) {
+		return exp.getUser(emailId,password);
 	}
-	@PutMapping(path="{EMAILID}/{PASSWORD}")
-	public int resetPassword(@PathVariable String EMAILID,@PathVariable String PASSWORD) {
-		return exp.resetPassword(EMAILID,PASSWORD);
+	@PutMapping(PathRoutes.SearchSQL.GET_EMAIL_PASSWORD)
+	public int resetPassword(@PathVariable String emailId,@PathVariable String password) {
+		return exp.resetPassword(emailId,password);
 	}
 	
 	
