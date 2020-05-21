@@ -164,7 +164,7 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 
 	@Override
 	public List<Map<String, Object>> liscategoryexpense() {
-		String sql = Sql.MetadataSql.LIST_CATEGORY_INCOME;
+		String sql = Sql.MetadataSql.LIST_CATEGORY_EXPENSE;
 		return jdbcTemplate.queryForList(sql);
 
 	}
