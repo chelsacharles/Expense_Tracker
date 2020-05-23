@@ -105,9 +105,7 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 		
 		String sql= Sql.MetadataSql.ADD_USER;
 		int update = jdbcTemplate.update(sql,emailId,name,pass);
-		if(update==1) {
-			System.out.println("User is created");
-		}
+		
 		return 1;
 		
 	}
@@ -156,10 +154,17 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 
 	@Override
 	public int resetPassword(String emailId, String password) {
-		
-		String updateSql=Sql.MetadataSql.UPDATE_PASSWORD;
-		Object[] inputs = new Object[] {password,emailId};
-		return jdbcTemplate.update(updateSql,inputs);
+
+	String password2 =password;
+	char[] ch = new char[password2.length()];
+	for (int i = 0; i < password2.length(); i++) {
+	            ch[i] = password2.charAt(i);
+	        }
+	String passwd=passwordAuthentication.hash(ch);
+
+	String updateSql=Sql.MetadataSql.UPDATE_PASSWORD;
+	Object[] inputs = new Object[] {passwd,emailId};
+	return jdbcTemplate.update(updateSql,inputs);
 	}
 
 	@Override
