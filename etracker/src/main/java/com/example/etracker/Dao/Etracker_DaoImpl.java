@@ -53,15 +53,13 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	}
 
 	public void addincome(int userId, String item, int categoryId, double amount, String transactionDate) {
-		 Object[] incomearray = {userId,  item,  categoryId,  amount,transactionDate};
-		 int[] incometype = {Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.DOUBLE,Types.DATE};
-		 jdbcTemplate.update(Sql.MetadataSql.ADDINCOME,incomearray,incometype);
+
+		 jdbcTemplate.update(Sql.MetadataSql.ADDINCOME,userId,  item,  categoryId,  amount,transactionDate);
 		
 	}
 	public void addexpense(int userId, String item, int categoryId, double amount, String transactionDate) {
-		 Object[] expensearray = {userId,  item,  categoryId,  amount,transactionDate};
-		 int[] expensetype = {Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.DOUBLE,Types.DATE};
-		 jdbcTemplate.update(Sql.MetadataSql.ADDEXPENSE,expensearray,expensetype);
+
+		 jdbcTemplate.update(Sql.MetadataSql.ADDEXPENSE,userId,item,categoryId,amount,transactionDate);
 		
 	}
 
