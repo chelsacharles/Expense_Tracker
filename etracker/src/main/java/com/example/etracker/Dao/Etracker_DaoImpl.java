@@ -62,6 +62,19 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 		 jdbcTemplate.update(Sql.MetadataSql.ADDEXPENSE,userId,item,categoryId,amount,transactionDate);
 		
 	}
+	
+	public void addincomecategory( String categoryName) {
+
+		 jdbcTemplate.update(Sql.MetadataSql.ADDINCOMECATEGORY, categoryName);
+		
+	}
+	
+	public void addexpensecategory( String categoryName) {
+
+		 jdbcTemplate.update(Sql.MetadataSql.ADDEXPENSECATEGORY, categoryName);
+		
+	}
+	
 
 	public List<Map<String, Object>> monthlycategorysum(int userId) {
 		return jdbcTemplate.queryForList(Sql.MetadataSql.CATEGORY_BAR_MONTH,userId);

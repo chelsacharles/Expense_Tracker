@@ -60,6 +60,20 @@ public class Etracker_Controller {
 	 exp.addexpense(userId,item,categoryId,amount,transactionDate);
 	 }
 	
+	@PostMapping(PathRoutes.SearchSQL.ADD_INCOME_CATEGORY)
+	 public void addincomecategory(@RequestParam String categoryName ) {
+	 exp.addincomecategory(categoryName);
+	 }
+	@PostMapping(PathRoutes.SearchSQL.ADD_EXPENSE_CATEGORY)
+	 public void addexpensecategory(@RequestParam String categoryName ) {
+	 exp.addexpensecategory(categoryName);
+	 }
+	
+	
+	
+	
+	
+	
 	@GetMapping(PathRoutes.SearchSQL.LIST_CATEGORY_EXPENSE)
 	public List<Map<String, Object>> liscategoryexpense()
 	{

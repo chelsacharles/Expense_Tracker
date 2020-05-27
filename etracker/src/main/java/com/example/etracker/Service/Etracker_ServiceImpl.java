@@ -38,9 +38,18 @@ public class Etracker_ServiceImpl implements Etracker_Service{
 		
 	}
 	public void addexpense(int userId, String item, int categoryId, double amount, String transactionDate) {
-		epTrackDao.addexpense(userId,item,categoryId,amount,transactionDate);
+		    epTrackDao.addexpense(userId,item,categoryId,amount,transactionDate);
 	
 	}
+	
+	public void addincomecategory( String categoryName) {
+		    epTrackDao.addincomecategory(categoryName);
+	 
+    }
+    public void addexpensecategory(String categoryName) {
+	        epTrackDao.addexpensecategory(categoryName);
+
+    }
 
 	public List<Map<String, Object>> monthlycategorysum(int userId) {
 		return epTrackDao.monthlycategorysum(userId);

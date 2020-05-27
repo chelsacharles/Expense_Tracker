@@ -14,6 +14,8 @@ public interface Etracker_Dao {
 	public Collection<Map<String,java.lang.Object>> graph4(int userId);
 	public void addincome(int userId, String item, int categoryId, double amount, String transactionDate);
 	public void addexpense(int userId, String item, int categoryId, double amount, String transactionDate);
+	public void addincomecategory(String categoryName);
+	public void addexpensecategory(String categoryName);
 	public List<Map<String, Object>> monthlycategorysum(int userId);
 	public List<Map<String, Object>> yearlycategorysum(int userId);
 
