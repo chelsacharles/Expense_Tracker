@@ -4,8 +4,6 @@ package com.example.etracker.Dao;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
-import java.sql.Types;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -115,7 +113,7 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 		String pass=passwordAuthentication.hash(ch);
 		
 		String sql= Sql.MetadataSql.ADD_USER;
-		int update = jdbcTemplate.update(sql,emailId,name,pass);
+		jdbcTemplate.update(sql,emailId,name,pass);
 		
 		return 1;
 		
