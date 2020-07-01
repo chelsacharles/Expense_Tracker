@@ -11,6 +11,8 @@ public interface PathRoutes {
 		final String TOTAL_LINE_MONTH = "/TotalExpenseTotalIncomeLine_month";
 		final String ADD_INCOME = "/addincome";
 		final String ADD_EXPENSE = "/addexpense";
+		final String ADD_INCOME_CATEGORY = "/addincomecategory";
+		final String ADD_EXPENSE_CATEGORY = "/addexpensecategory";
 		final String LIST_CATEGORY_EXPENSE = "/liscategoryexpense";
 		final String LIST_CATEGORY_INCOME= "/liscategoryincome";
 		final String CATEGORY_BAR_MONTH= "/monthlycategorysum";

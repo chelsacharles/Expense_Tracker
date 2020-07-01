@@ -32,24 +32,24 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 	PasswordAuthentication passwordAuthentication=new PasswordAuthentication();
 	
        
-    public Map<String, java.lang.Object> graph1(int userId) {
+    public Map<String, java.lang.Object> graph1(int year,int userId) {
 		
-		return jdbcTemplate.queryForMap(Sql.MetadataSql.TOTAL_BAR_YEAR,userId);
+		return jdbcTemplate.queryForMap(Sql.MetadataSql.TOTAL_BAR_YEAR,year,userId);
 	}
     
-	public Map<String, java.lang.Object> graph2(int userId) {
+	public Map<String, java.lang.Object> graph2(int year,String month,int userId) {
 		
-		return jdbcTemplate.queryForMap(Sql.MetadataSql.TOTAL_BAR_MONTH,userId);
+		return jdbcTemplate.queryForMap(Sql.MetadataSql.TOTAL_BAR_MONTH,year,month,userId);
 	}
 	
-    public Collection<Map<String,java.lang.Object>> graph3(int userId) {
+    public Collection<Map<String,java.lang.Object>> graph3(int year,int userId) {
 		
-		return jdbcTemplate.queryForList(Sql.MetadataSql.TOTAL_LINE_YEAR,userId);
+		return jdbcTemplate.queryForList(Sql.MetadataSql.TOTAL_LINE_YEAR,year,userId);
 	}
     
-    public Collection<Map<String,java.lang.Object>> graph4(int userId) {
+    public Collection<Map<String,java.lang.Object>> graph4(String month,int year,int userId) {
 		
-		return jdbcTemplate.queryForList(Sql.MetadataSql.TOTAL_LINE_MONTH,userId);
+		return jdbcTemplate.queryForList(Sql.MetadataSql.TOTAL_LINE_MONTH,month,year,userId);
 	}
 
 	public void addincome(int userId, String item, int categoryId, double amount, String transactionDate) {
@@ -62,14 +62,27 @@ public class Etracker_DaoImpl implements Etracker_Dao {
 		 jdbcTemplate.update(Sql.MetadataSql.ADDEXPENSE,userId,item,categoryId,amount,transactionDate);
 		
 	}
+	
+	public void addincomecategory( String categoryName) {
 
-	public List<Map<String, Object>> monthlycategorysum(int userId) {
-		return jdbcTemplate.queryForList(Sql.MetadataSql.CATEGORY_BAR_MONTH,userId);
+		 jdbcTemplate.update(Sql.MetadataSql.ADDINCOMECATEGORY, categoryName);
+		
+	}
+	
+	public void addexpensecategory( String categoryName) {
+
+		 jdbcTemplate.update(Sql.MetadataSql.ADDEXPENSECATEGORY, categoryName);
+		
+	}
+	
+
+	public List<Map<String, Object>> monthlycategorysum(int userId,String month,int year) {
+		return jdbcTemplate.queryForList(Sql.MetadataSql.CATEGORY_BAR_MONTH,userId,month,year);
 
 	}
 
-	public List<Map<String, Object>> yearlycategorysum(int userId) {
-		return jdbcTemplate.queryForList(Sql.MetadataSql.CATEGORY_BAR_YEAR,userId);
+	public List<Map<String, Object>> yearlycategorysum(int userId,int year) {
+		return jdbcTemplate.queryForList(Sql.MetadataSql.CATEGORY_BAR_YEAR,userId,year);
 
 	}
 	
